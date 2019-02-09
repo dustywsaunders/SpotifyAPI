@@ -1,7 +1,5 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../db')
-// const Playlist = require('../playlists/model')
-
 
 const Songs = sequelize.define('songs', {
   title: {
@@ -27,8 +25,5 @@ const Songs = sequelize.define('songs', {
   timestamps: false,
   tableName: 'songs'
 })
-
-// Songs.belongsTo(Playlist, {foreignKey: 'playlistId'});
-
 
 module.exports = Songs;

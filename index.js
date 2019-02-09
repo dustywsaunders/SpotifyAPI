@@ -10,7 +10,10 @@ const port = process.env.PORT || 4000
 
 app
   .use(bodyParser.json())
-  .use(playlistsRouter, songsRouter, loginsRouter, usersRouter)
+  .use(
+    playlistsRouter, 
+    songsRouter, 
+    loginsRouter, 
+    usersRouter
+  )
   .listen(port, () => console.log(`Listening on port ${port}`))
-
-  // 

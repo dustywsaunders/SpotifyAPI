@@ -19,7 +19,9 @@ const Playlist = sequelize.define('playlists', {
   tableName: 'playlists'
 })
 
-Playlist.hasMany(Songs, {foreignKey: 'playlistId'})
+Playlist.hasMany(Songs, {
+  foreignKey: 'playlistId'
+})
 Playlist.belongsTo(User)
 
 
