@@ -12,10 +12,17 @@ router.post('/users', (req, res, next) => {
   User
     .create(user)
     .then(entity => {
-    	res.send({
-    		id: entity.id,
-				email: entity.email,
-    	})
+			console.log(req.body.password);
+			
+			if (req.body.passwordConfirmation === req.body.password) {
+				return res.send({
+					id: entity.id,
+					email: entity.email,
+				})
+			}
+    	return res.status(400).send({
+				message: 'Passwords do not match'
+			})
     })
     .catch(err => {
     	console.error(err)
@@ -24,6 +31,7 @@ router.post('/users', (req, res, next) => {
     	})
     })
 })
+
 
 router.get('/users', (req, res, next) => {
   let limit = req.query.limit || 25;

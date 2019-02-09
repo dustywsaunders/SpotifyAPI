@@ -6,43 +6,43 @@ const auth = require('../auth/middleware')
 
 const router = new Router()
 
-router.get('/songs', auth, (req, res, next) => {
+router.get('/playlists/:id/songs', auth, (req, res, next) => {
   let limit = req.query.limit || 25;
   const offset = req.query.offset || 0;
   limit = Math.min(200, limit);
 
   Promise.all([
-    Songs.count(),
-    Songs.findAll({
-      limit,
-      offset
-    })
-  ])
-  .then(([total, songs]) => {
-    res.send({
-      songs,
-      total
-    })
-  })
-  .catch(error => next(error))    
-})
-
-
-router.get('/songs/:id', auth, (req, res, next) => {
-  Songs
-    .findById(req.params.id)
-    .then(song => {
-      if (!song) {
-        return res.status(404).send({
-          message: `Song does not exist`
-        })
-      }
-      return res.send(song)
+      Songs.count(),
+      Songs.findAll({
+        limit,
+        offset
+      })
+    ])
+    .then(([total, songs]) => {
+      res.send({
+        songs,
+        total
+      })
     })
     .catch(error => next(error))
 })
 
-router.post('/songs', auth, (req, res, next) => {
+
+// router.get('/songs/:id', auth, (req, res, next) => {
+//   Songs
+//     .findById(req.params.id)
+//     .then(song => {
+//       if (!song) {
+//         return res.status(404).send({
+//           message: `Song does not exist`
+//         })
+//       }
+//       return res.send(song)
+//     })
+//     .catch(error => next(error))
+// })
+
+router.post('/playlists/:id/songs', auth, (req, res, next) => {
   Songs
     .create(req.body)
     .then(song => {
@@ -56,7 +56,7 @@ router.post('/songs', auth, (req, res, next) => {
     .catch(error => next(error))
 })
 
-router.put('/songs/:id', auth, (req, res, next) => {
+router.put('/playlists/:id/songs/:id', auth, (req, res, next) => {
   Songs
     .findById(req.params.id)
     .then(song => {
@@ -70,7 +70,7 @@ router.put('/songs/:id', auth, (req, res, next) => {
     .catch(error => next(error))
 })
 
-router.delete('/songs/:id', auth, (req, res, next) => {
+router.delete('/playlists/:id/songs/:id', auth, (req, res, next) => {
   Songs
     .findById(req.params.id)
     .then(song => {
