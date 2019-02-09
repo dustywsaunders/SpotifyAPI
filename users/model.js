@@ -22,6 +22,6 @@ const User = sequelize.define('users', {
   tableName: 'users'
 })
 
-User.hasMany(Playlist, {foreignKey: 'userId'});
+// User.hasMany(Playlist, {foreignKey: 'userId'});
 
 module.exports = User

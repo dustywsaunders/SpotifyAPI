@@ -33,25 +33,25 @@ router.post('/users', (req, res, next) => {
 })
 
 
-router.get('/users', (req, res, next) => {
-  let limit = req.query.limit || 25;
-  const offset = req.query.offset || 0;
-  limit = Math.min(200, limit);
+// router.get('/users', (req, res, next) => {
+//   let limit = req.query.limit || 25;
+//   const offset = req.query.offset || 0;
+//   limit = Math.min(200, limit);
 
-  Promise.all([
-    User.count(),
-    User.findAll({
-      limit,
-      offset
-    })
-  ])
-  .then(([total, users]) => {
-    res.send({
-      users,
-      total
-    })
-  })
-  .catch(error => next(error))    
-})
+//   Promise.all([
+//     User.count(),
+//     User.findAll({
+//       limit,
+//       offset
+//     })
+//   ])
+//   .then(([total, users]) => {
+//     res.send({
+//       users,
+//       total
+//     })
+//   })
+//   .catch(error => next(error))    
+// })
 
 module.exports = router
