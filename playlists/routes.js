@@ -39,7 +39,7 @@ router.get('/playlists/:id', auth, (req, res, next) => {
           message: `Playlist does not exist`
         })
       }
-      return res.send(playlist)
+      return res.status(200).send(playlist)
     })
     .catch(error => next(error))
 })
@@ -58,7 +58,8 @@ router.post('/playlists', auth, (req, res, next) => {
         })
       }
       return res.status(201).send({
-        playlist
+        playlist,
+        message: 'Playlist was created'
       })
     })
     .catch(error => next(error))
@@ -89,7 +90,7 @@ router.delete('/playlists/:id', auth, (req, res, next) => {
         })
       }
       return playlist.destroy()
-        .then(() => res.send({
+        .then(() => res.status(200).send({
           message: `Playlist was deleted`
         }))
     })
