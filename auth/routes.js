@@ -4,7 +4,6 @@ const {
 const router = new Router()
 const {
   toJWT,
-  toData
 } = require('./jwt')
 const User = require('../users/model')
 const bcrypt = require('bcrypt')
@@ -12,7 +11,7 @@ const auth = require('./middleware')
 
 
 
-router.post('/logins', (req, res) => {
+router.post('/tokens', (req, res) => {
   const email = req.body.email
   const password = req.body.password
 

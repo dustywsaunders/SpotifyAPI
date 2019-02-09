@@ -3,7 +3,7 @@ const {
 } = require('express')
 const Playlist = require('./model')
 const Songs = require('../songs/model')
-
+const auth = require('../auth/middleware')
 
 const router = new Router()
 
@@ -44,7 +44,7 @@ router.get('/playlists/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-router.post('/playlists', (req, res, next) => {
+router.post('/playlists', auth, (req, res, next) => {
   Playlist
     .create(req.body)
     .then(playlist => {
