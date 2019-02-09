@@ -6,7 +6,8 @@ const router = new Router()
 router.post('/users', (req, res, next) => {
   const user = {
   	email: req.body.email,
-  	password: bcrypt.hashSync(req.body.password, 10)
+		password: bcrypt.hashSync(req.body.password, 10),
+		passwordConfirmation: bcrypt.hashSync(req.body.passwordConfirmation, 10)
   }
   User
     .create(user)
@@ -14,7 +15,6 @@ router.post('/users', (req, res, next) => {
     	res.send({
     		id: entity.id,
 				email: entity.email,
-				email_confirmation: entity.email.email_confirmation
     	})
     })
     .catch(err => {
@@ -23,6 +23,27 @@ router.post('/users', (req, res, next) => {
     		message: 'Something went wrong'
     	})
     })
+})
+
+router.get('/users', (req, res, next) => {
+  let limit = req.query.limit || 25;
+  const offset = req.query.offset || 0;
+  limit = Math.min(200, limit);
+
+  Promise.all([
+    User.count(),
+    User.findAll({
+      limit,
+      offset
+    })
+  ])
+  .then(([total, users]) => {
+    res.send({
+      users,
+      total
+    })
+  })
+  .catch(error => next(error))    
 })
 
 module.exports = router

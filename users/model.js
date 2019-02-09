@@ -11,7 +11,7 @@ const User = sequelize.define('users', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  password_confirmation: {
+  passwordConfirmation: {
     type: Sequelize.STRING,
     allowNull: false
   }
