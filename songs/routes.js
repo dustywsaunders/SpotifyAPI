@@ -2,10 +2,11 @@ const {
   Router
 } = require('express')
 const Songs = require('./model')
+const auth = require('../auth/middleware')
 
 const router = new Router()
 
-router.get('/songs', (req, res, next) => {
+router.get('/songs', auth, (req, res, next) => {
   let limit = req.query.limit || 25;
   const offset = req.query.offset || 0;
   limit = Math.min(200, limit);
@@ -27,7 +28,7 @@ router.get('/songs', (req, res, next) => {
 })
 
 
-router.get('/songs/:id', (req, res, next) => {
+router.get('/songs/:id', auth, (req, res, next) => {
   Songs
     .findById(req.params.id)
     .then(song => {
@@ -41,7 +42,7 @@ router.get('/songs/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-router.post('/songs', (req, res, next) => {
+router.post('/songs', auth, (req, res, next) => {
   Songs
     .create(req.body)
     .then(song => {
@@ -55,7 +56,7 @@ router.post('/songs', (req, res, next) => {
     .catch(error => next(error))
 })
 
-router.put('/songs/:id', (req, res, next) => {
+router.put('/songs/:id', auth, (req, res, next) => {
   Songs
     .findById(req.params.id)
     .then(song => {
@@ -69,7 +70,7 @@ router.put('/songs/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-router.delete('/songs/:id', (req, res, next) => {
+router.delete('/songs/:id', auth, (req, res, next) => {
   Songs
     .findById(req.params.id)
     .then(song => {

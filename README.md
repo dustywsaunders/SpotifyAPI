@@ -45,3 +45,14 @@ Make sure to return the right one of these status codes: 200 (ok), 201 (created)
 ​
  * Deploy to Heroku
  * Send the link to your Heroku app, as well as the link to your Github repo to teachers@codaisseur.com
+
+ user 1
+ email: 1@email.com
+ password: one
+ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU0OTcxNzQ1MywiZXhwIjoxNTQ5NzI0NjUzfQ.hk1wEhCcVMLdIsth7QUSsAVMDyXGdYemisW4ZX-8NKs
+
+ user 2
+ email: 2@email.com
+ password: two
+ token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTU0OTcxNzM2MSwiZXhwIjoxNTQ5NzI0NTYxfQ.1TPro3QZz-wLWiL5VJ5mHCVvSTJtxBF6PYqd56wBC1k
+

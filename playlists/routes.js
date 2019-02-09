@@ -7,7 +7,7 @@ const auth = require('../auth/middleware')
 
 const router = new Router()
 
-router.get('/playlists', (req, res, next) => {
+router.get('/playlists', auth, (req, res, next) => {
   let limit = req.query.limit || 25;
   const offset = req.query.offset || 0;
   limit = Math.min(200, limit);
@@ -28,7 +28,7 @@ router.get('/playlists', (req, res, next) => {
     .catch(error => next(error))
 })
 
-router.get('/playlists/:id', (req, res, next) => {
+router.get('/playlists/:id', auth, (req, res, next) => {
   Playlist
     .findById(req.params.id, {
       include: [Songs]
@@ -58,7 +58,7 @@ router.post('/playlists', auth, (req, res, next) => {
     .catch(error => next(error))
 })
 
-router.put('/playlists/:id', (req, res, next) => {
+router.put('/playlists/:id', auth, (req, res, next) => {
   Playlist
     .findById(req.params.id)
     .then(playlist => {
@@ -72,7 +72,7 @@ router.put('/playlists/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-router.delete('/playlists/:id', (req, res, next) => {
+router.delete('/playlists/:id', auth, (req, res, next) => {
   Playlist
     .findById(req.params.id)
     .then(playlist => {
