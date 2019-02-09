@@ -15,9 +15,10 @@ router.post('/users', (req, res, next) => {
 			console.log(req.body.password);
 			
 			if (req.body.passwordConfirmation === req.body.password) {
-				return res.send({
+				return res.status(201).send({
 					id: entity.id,
 					email: entity.email,
+					message: 'User was created'
 				})
 			}
     	return res.status(400).send({

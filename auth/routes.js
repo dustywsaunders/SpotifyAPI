@@ -16,7 +16,7 @@ router.post('/tokens', (req, res) => {
   const password = req.body.password
 
   if (!email || !password) {
-    res.status(400).send({
+    res.status(422).send({
       message: 'Please supply a valid email and password'
     })
   } else {
@@ -29,7 +29,7 @@ router.post('/tokens', (req, res) => {
       })
       .then(entity => {
         if (!entity) {
-          res.status(400).send({
+          res.status(404).send({
             message: 'User with that email does not exist'
           })
         }
@@ -44,24 +44,24 @@ router.post('/tokens', (req, res) => {
             message: 'User has logged in'
           })
         } else {
-          res.status(400).send({
+          res.status(422).send({
             message: 'Password was incorrect'
           })
         }
       })
       .catch(err => {
         console.error(err)
-        res.status(500).send({
-          message: 'Something went wrong'
+        res.status(401).send({
+          message: 'User is not authenticated'
         })
       })
   }
 });
 
-router.get('/secret-endpoint', auth, (req, res) => {
-  res.send({
-    message: `Thanks for visiting the secret endpoint ${req.user.email}.`,
-  })
-});
+// router.get('/secret-endpoint', auth, (req, res) => {
+//   res.send({
+//     message: `Thanks for visiting the secret endpoint ${req.user.email}.`,
+//   })
+// });
 
 module.exports = router
