@@ -15,6 +15,7 @@ router.get('/playlists', auth, (req, res, next) => {
   Promise.all([
       Playlist.count(),
       Playlist.findAll({
+        where: { userId: req.user.id },
         limit,
         offset
       })
@@ -30,11 +31,16 @@ router.get('/playlists', auth, (req, res, next) => {
 
 router.get('/playlists/:id', auth, (req, res, next) => {
   Playlist
-    .findById(req.params.id, {
+    .findAll({
+      where: { userId: req.user.id },
       include: [Songs]
     })
+    // Playlist
+    // .findById(req.params.id, {
+    //   include: [Songs]
+    // })
     .then(playlist => {
-      if (!playlist) {
+      if (!playlist || playlist.userId !== req.user.id) {
         return res.status(404).send({
           message: `Playlist does not exist`
         })
@@ -84,7 +90,7 @@ router.delete('/playlists/:id', auth, (req, res, next) => {
   Playlist
     .findById(req.params.id)
     .then(playlist => {
-      if (!playlist) {
+      if (!playlist || playlist.userId !== req.user.id) {
         return res.status(404).send({
           message: `Playlist does not exist`
         })

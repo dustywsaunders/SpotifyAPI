@@ -37,7 +37,7 @@ router.post('/playlists/:id/songs', auth, (req, res, next) => {
     .then(playlist => {
       console.log(req.params.id, "HALLO!!!!!!!!!!!!!");
       
-      if (!playlist) {
+      if (!playlist || playlist.userId !== req.user.id) {
         return res.status(404).send({
           message: `Playlist does not exist`
         })
@@ -81,7 +81,7 @@ router.put('/playlists/:id/songs/:id', auth, (req, res, next) => {
   .then(playlist => {
     console.log(req.params.id, "HALLO!!!!!!!!!!!!!");
     
-    if (!playlist) {
+    if (!playlist || playlist.userId !== req.user.id) {
       return res.status(404).send({
         message: `Playlist does not exist`
       })
@@ -120,7 +120,7 @@ router.delete('/playlists/:id/songs/:id', auth, (req, res, next) => {
     .then(playlist => {
       console.log(req.params.id, "HALLO!!!!!!!!!!!!!");
       
-      if (!playlist) {
+      if (!playlist || playlist.userId !== req.user.id) {
         return res.status(404).send({
           message: `Playlist does not exist`
         })
@@ -148,19 +148,5 @@ router.delete('/playlists/:id/songs/:id', auth, (req, res, next) => {
 
 })
 
-// router.get('/songs/:id', auth, (req, res, next) => {
-//   Songs
-//     .findById(req.params.id)
-//     .then(song => {
-//       if (!song) {
-//         return res.status(404).send({
-//           message: `Song does not exist`
-//         })
-//       }
-//       return res.send(song)
-//     })
-//     .catch(error => next(error))
-// })
 
 module.exports = router
-
